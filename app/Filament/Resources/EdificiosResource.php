@@ -35,9 +35,9 @@ class EdificiosResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('empresa.nombre')->label('Empresa'),
-                Tables\Columns\TextColumn::make('ciudad.nombre')->label('Ciudad'),
-                Tables\Columns\TextColumn::make('nombre')->label('Edificio'),
+                Tables\Columns\TextColumn::make('empresa.nombre')->label('Empresa')->searchable(),
+                Tables\Columns\TextColumn::make('ciudad.nombre')->label('Ciudad')->searchable(),
+                Tables\Columns\TextColumn::make('nombre')->label('Edificio')->searchable(),
                 Tables\Columns\TextColumn::make('direccion')->label('Direccion'),
                 Tables\Columns\TextColumn::make('coordenadas')->label('Coordenadas'),
             ])

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RegistrosResource\Pages;
-use App\Filament\Resources\RegistrosResource\RelationManagers;
-use App\Models\Registros;
+use App\Filament\Resources\InactivosResource\Pages;
+use App\Filament\Resources\InactivosResource\RelationManagers;
+use App\Models\Inactivos;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,27 +12,22 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\RegistrosResource\Pages\CreateRegistros;
+use App\Filament\Resources\RegistrosResource\Pages\EditRegistros;
 
-
-class RegistrosResource extends Resource
+class InactivosResource extends Resource
 {
-    protected static ?string $model = Registros::class;
+    protected static ?string $model = Inactivos::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $navigationIcon = 'heroicon-o-x-circle';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_vehiculo')->label('Vehiculo')->relationship('vehiculos','matricula')->searchable()->preload()->required()->columnSpanFull(),
-                Forms\Components\Select::make('id_edificio')->label('Edificio donde se Dirige')->relationship('edificios','nombre')->searchable()->preload()->required()->columnSpanFull(),
-                Forms\Components\Select::make('status')->label('Status')->options(['Activo' => 'Activo','Inactivos'=>'Inactivos','Reservados'=>'Reservados'])->searchable()->preload()->required()->columnSpanFull(),
-                Forms\Components\Select::make('tipo_registro')->label('Tipo de Registro')->options(['Lleva Personas'=> 'Lleva Personas','Llevar Carga'=>'Llevar Carga'])->searchable()->preload()->required()->columnSpanFull(),
-                Forms\Components\TextInput::make('descripcion')->label('Descripcion')->columnSpanFull(),
-                Forms\Components\TextInput::make('cantidad')->label('Cantidad de Objetos o Personas')->numeric()->columnSpanFull(),
+                //
             ]);
     }
-
 
     public static function table(Table $table): Table
     {
@@ -46,7 +41,7 @@ class RegistrosResource extends Resource
                 Tables\Columns\TextColumn::make('cantidad')->label('Cantidad de Objetos o Personas')->numeric()->searchable(),
             ])
             ->filters([
-
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -68,9 +63,9 @@ class RegistrosResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRegistros::route('/'),
-            'create' => Pages\CreateRegistros::route('/create'),
-            'edit' => Pages\EditRegistros::route('/{record}/edit'),
+            'index' => Pages\ListInactivos::route('/'),
+            'create' => CreateRegistros::route('/create'),
+            'edit' => EditRegistros::route('/{record}/edit'),
         ];
     }
 }

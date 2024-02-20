@@ -31,10 +31,12 @@ class VehiculosResource extends Resource
                 Forms\Components\Select::make('id_empresa')->label('Empresa que pertenece el Vehiculo')->relationship('empresas','nombre')->searchable()->preload()->required()->columnSpanFull(),
                 Forms\Components\Select::make('id_modelos')->label('Modelos del Vehiculo')->relationship('modelos','nombre')->searchable()->preload()->required()->columnSpanFull(),
                 Forms\Components\Select::make('id_edificio')->label('Edificio donde se encuentra el vehiculo')->relationship('edificios','nombre')->searchable()->preload()->required()->columnSpanFull(),
-                Forms\Components\TextInput::make('matricula')->label('Matricula del Vehiculo')->columnSpanFull(),
-                Forms\Components\TextInput::make('color')->label('Color del Vehiculo')->columnSpanFull(),
-                Forms\Components\DatePicker::make('año')->label('Año del Vehiculo')->format('Y')->columnSpanFull(),
-                FileUpload::make('foto')->label('Imagen del Vehiculo')->columnSpanFull()
+                Forms\Components\TextInput::make('matricula')->label('Matricula del Vehiculo')->required()->columnSpanFull(),
+                Forms\Components\TextInput::make('color')->label('Color del Vehiculo')->required()->columnSpanFull(),
+                Forms\Components\DatePicker::make('año')->label('Año del Vehiculo')->format('Y')->required()->columnSpanFull(),
+                Forms\Components\FileUpload::make('foto')->label('Imagen del Vehiculo')->image()->required()->preserveFilenames()->columnSpanFull(),
+                // FileUpload::make('foto')->disk('public')->directory('form-attachments')->image()->required()->visibility('private')->preserveFilenames()->columnSpanFull()
+
 
             ]);
     }
@@ -49,7 +51,7 @@ class VehiculosResource extends Resource
                 Tables\Columns\TextColumn::make('matricula')->label('Matricula')->searchable(),
                 Tables\Columns\TextColumn::make('color')->label('Color')->searchable(),
                 Tables\Columns\TextColumn::make('año')->label('Año'),
-                ImageColumn::make('foto')->label('Imagen'),
+                Tables\Columns\ImageColumn::make('foto')->label('Imagen')->square(),
             ])
             ->filters([
                 //
