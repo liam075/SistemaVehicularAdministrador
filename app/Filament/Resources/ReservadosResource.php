@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\RegistrosResource\Pages\CreateRegistros;
+use App\Filament\Resources\RegistrosResource\Pages\EditRegistros;
 
 class ReservadosResource extends Resource
 {
@@ -31,7 +33,12 @@ class ReservadosResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('vehiculos.matricula')->label('Vehiculo')->searchable(),
+                Tables\Columns\TextColumn::make('edificios.nombre')->label('Donde se Dirige'),
+                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\TextColumn::make('tipo_registro')->label('Tipo de Registro')->searchable(),
+                Tables\Columns\TextColumn::make('descripcion')->label('Descripcion')->searchable(),
+                Tables\Columns\TextColumn::make('cantidad')->label('Cantidad de Objetos o Personas')->numeric()->searchable(),
             ])
             ->filters([
                 //
@@ -57,8 +64,8 @@ class ReservadosResource extends Resource
     {
         return [
             'index' => Pages\ListReservados::route('/'),
-            'create' => Pages\CreateReservados::route('/create'),
-            'edit' => Pages\EditReservados::route('/{record}/edit'),
+            'create' => CreateRegistros::route('/create'),
+            'edit' => EditRegistros::route('/{record}/edit'),
         ];
     }
 }
